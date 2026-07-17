@@ -1,0 +1,53 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  html {
+    scroll-behavior: smooth;
+  }
+
+  body {
+    @apply bg-base font-body text-primary antialiased;
+  }
+
+  ::selection {
+    background-color: #c4a882;
+    color: #0a0a0f;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    html {
+      scroll-behavior: auto;
+    }
+  }
+}
+
+/* Scrollbar discreta acorde a la paleta */
+::-webkit-scrollbar {
+  width: 10px;
+}
+::-webkit-scrollbar-track {
+  background: #0a0a0f;
+}
+::-webkit-scrollbar-thumb {
+  background: #141419;
+  border: 2px solid #0a0a0f;
+  border-radius: 8px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: #4a6b7c;
+}
+
+/* Indicador de scroll del hero */
+@keyframes scrollHint {
+  0%,
+  100% {
+    transform: translateY(0);
+    opacity: 0.5;
+  }
+  50% {
+    transform: translateY(6px);
+    opacity: 1;
+  }
+}

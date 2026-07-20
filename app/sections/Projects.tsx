@@ -48,7 +48,7 @@ const ProjectCard = memo(function ProjectCard({
 
       {/* TODO: Reemplazar href por <Link href={`/proyecto/${project.id}`}> cuando las paginas individuales esten implementadas */}
       <a
-        href="https://en-construccion.vercel.app/"
+        href={project.href ?? 'https://en-construccion.vercel.app/'}
         target="_blank"
         rel="noopener noreferrer"
         className="mt-6 inline-block cursor-pointer text-primary no-underline transition-colors duration-300 hover:text-copper"

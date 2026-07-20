@@ -10,6 +10,7 @@ export interface Project {
   result: string;
   category: 'data-science' | 'optimization' | 'energy-markets' | 'bi-analytics';
   color: string;
+  href?: string;
 }
 
 export const projects: Project[] = [
@@ -23,6 +24,7 @@ export const projects: Project[] = [
     result: '+15% precision vs. modelo baseline',
     category: 'data-science',
     color: '#4A6B7C',
+    href: 'https://demanda-electrica-residencial.vercel.app/',
   },
   {
     id: '02',

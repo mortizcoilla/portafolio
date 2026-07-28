@@ -10,7 +10,7 @@ export default function EfficientFrontier() {
     <section
       id="frontera"
       ref={ref}
-      className="mx-auto max-w-site scroll-mt-20 px-6 py-24 md:px-10 md:py-36"
+      className="mx-auto max-w-site scroll-mt-24 px-6 py-16 md:px-10 md:py-24"
     >
       <h2 className="font-mono text-xs uppercase tracking-[0.2em] text-copper">
         Frontera eficiente

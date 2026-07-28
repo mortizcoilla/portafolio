@@ -2,8 +2,9 @@ import Hero from './sections/Hero';
 import Projects from './sections/Projects';
 import Contact from './sections/Contact';
 
-// Philosophy, Capabilities y EfficientFrontier retiradas del render
-// (los archivos se conservan en app/sections/ por si se reincorporan).
+// EfficientFrontier está reincorporado en el código (sections/EfficientFrontier.tsx)
+// pero se omite del render por decisión de diseño. Para reactivarlo,
+// importar el componente arriba y agregarlo entre Projects y Contact.
 export default function Home() {
   return (
     <main>

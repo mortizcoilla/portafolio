@@ -21,11 +21,11 @@ const FRONTIER = [
   { x: 9.7, y: 9.3 },
 ];
 
-const activate = (i: number) => {
+const activate = (slug: string) => {
   document
-    .getElementById(`proyecto-${i}`)
+    .getElementById(`proyecto-${slug}`)
     ?.scrollIntoView({ behavior: 'smooth', block: 'center' });
-  window.dispatchEvent(new CustomEvent<number>(HIGHLIGHT_EVENT, { detail: i }));
+  window.dispatchEvent(new CustomEvent<string>(HIGHLIGHT_EVENT, { detail: slug }));
 };
 
 export default function ScatterPlot() {
@@ -39,18 +39,19 @@ export default function ScatterPlot() {
     const tooltip = tooltipRef.current;
     if (!mount || !tooltip) return;
 
-    const x = scaleLinear().domain([0, 10]).range([M.left, W - M.right]);
-    const y = scaleLinear().domain([0, 10]).range([H - M.bottom, M.top]);
+    const x = scaleLinear()
+      .domain([0, 10])
+      .range([M.left, W - M.right]);
+    const y = scaleLinear()
+      .domain([0, 10])
+      .range([H - M.bottom, M.top]);
 
     const svg = select(mount)
       .append('svg')
       .attr('viewBox', `0 0 ${W} ${H}`)
       .attr('class', 'h-auto w-full')
       .attr('role', 'img')
-      .attr(
-        'aria-label',
-        'Gráfico de dispersión: complejidad técnica frente a impacto de negocio',
-      );
+      .attr('aria-label', 'Gráfico de dispersión: complejidad técnica frente a impacto de negocio');
 
     // rejilla
     TICKS.forEach((t) => {
@@ -146,7 +147,7 @@ export default function ScatterPlot() {
     const tooltipEl = select(tooltip);
 
     // puntos de proyectos: halo y tooltip por mutación directa del DOM
-    PROJECTS.forEach((p, i) => {
+    PROJECTS.forEach((p) => {
       const g = svg.append('g');
 
       const halo = g
@@ -194,11 +195,11 @@ export default function ScatterPlot() {
         .on('mouseleave', hide)
         .on('focus', show)
         .on('blur', hide)
-        .on('click', () => activate(i))
+        .on('click', () => activate(p.slug))
         .on('keydown', (event: KeyboardEvent) => {
           if (event.key === 'Enter' || event.key === ' ') {
             event.preventDefault();
-            activate(i);
+            activate(p.slug);
           }
         });
     });

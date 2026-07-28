@@ -3,8 +3,9 @@
 @tailwind utilities;
 
 @layer base {
+  /* scroll-behavior lo maneja SmoothScroll (GSAP) — desactivamos el nativo */
   html {
-    scroll-behavior: smooth;
+    scroll-behavior: auto;
   }
 
   body {

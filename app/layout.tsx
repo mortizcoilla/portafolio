@@ -1,6 +1,7 @@
 import type { Metadata, Viewport } from 'next';
 import localFont from 'next/font/local';
 import './globals.css';
+import SmoothScroll from './components/SmoothScroll';
 
 // Subsets latin servidos localmente (ver scripts/download-fonts.mjs)
 const spaceGrotesk = localFont({
@@ -25,22 +26,63 @@ export const metadata: Metadata = {
   metadataBase: new URL(
     process.env.VERCEL_URL ? `https://${process.env.VERCEL_URL}` : 'http://localhost:3000',
   ),
-  title: 'Miguel Ortiz — Análisis de sistemas complejos',
-  description: 'Portafolio de análisis de datos, optimización y mercados energéticos.',
+  title: {
+    default: 'Miguel Ortiz — Análisis de sistemas complejos',
+    template: '%s · Miguel Ortiz',
+  },
+  description:
+    'Análisis de sistemas complejos, modelado predictivo y optimización para decisiones de alto impacto. Portafolio de proyectos en energía, manufactura y datos.',
+  keywords: [
+    'Miguel Ortiz',
+    'análisis de sistemas',
+    'optimización',
+    'mercados energéticos',
+    'data science',
+    'portafolio',
+    'Chile',
+  ],
+  authors: [{ name: 'Miguel Ortiz Coilla', url: 'https://www.linkedin.com/in/mortizcoilla' }],
+  creator: 'Miguel Ortiz Coilla',
+  alternates: {
+    canonical: '/',
+  },
   openGraph: {
     title: 'Miguel Ortiz — Análisis de sistemas complejos',
-    description: 'Portafolio de análisis de datos, optimización y mercados energéticos.',
+    description:
+      'Análisis de sistemas complejos, modelado predictivo y optimización para decisiones de alto impacto.',
     type: 'website',
     locale: 'es_ES',
     siteName: 'Miguel Ortiz',
+    images: [
+      {
+        url: '/opengraph-image.png',
+        width: 1200,
+        height: 630,
+        alt: 'Miguel Ortiz — Portafolio',
+      },
+    ],
   },
   twitter: {
     card: 'summary_large_image',
+    title: 'Miguel Ortiz — Análisis de sistemas complejos',
+    description: 'Portafolio de análisis de datos, optimización y mercados energéticos.',
+  },
+  robots: {
+    index: true,
+    follow: true,
+    googleBot: {
+      index: true,
+      follow: true,
+      'max-image-preview': 'large',
+      'max-snippet': -1,
+    },
   },
 };
 
 export const viewport: Viewport = {
   themeColor: '#0A0A0F',
+  width: 'device-width',
+  initialScale: 1,
 };
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
@@ -49,7 +91,10 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
       lang="es"
       className={`${spaceGrotesk.variable} ${inter.variable} ${jetbrainsMono.variable}`}
     >
-      <body>{children}</body>
+      <body>
+        <SmoothScroll />
+        {children}
+      </body>
     </html>
   );
 }

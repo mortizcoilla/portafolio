@@ -9,6 +9,11 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
+    "lint": "next lint",
+    "format": "prettier --write \"**/*.{ts,tsx,js,json,md,css}\"",
+    "format:check": "prettier --check \"**/*.{ts,tsx,js,json,md,css}\"",
+    "test": "vitest run",
+    "test:watch": "vitest",
     "fonts": "node scripts/download-fonts.mjs"
   },
   "dependencies": {
@@ -21,14 +26,23 @@
     "three": "^0.169.0"
   },
   "devDependencies": {
+    "@testing-library/jest-dom": "^6.4.0",
+    "@testing-library/react": "^16.0.0",
     "@types/d3": "^7.4.3",
     "@types/node": "^20.16.0",
     "@types/react": "^18.3.10",
     "@types/react-dom": "^18.3.0",
     "@types/three": "^0.169.0",
+    "@vitejs/plugin-react": "^4.3.0",
     "autoprefixer": "^10.4.20",
+    "eslint": "^8.57.0",
+    "eslint-config-next": "^14.2.15",
+    "eslint-config-prettier": "^9.1.0",
+    "happy-dom": "^15.0.0",
     "postcss": "^8.4.47",
+    "prettier": "^3.3.3",
     "tailwindcss": "^3.4.13",
-    "typescript": "^5.6.2"
+    "typescript": "^5.6.2",
+    "vitest": "^1.6.0"
   }
 }

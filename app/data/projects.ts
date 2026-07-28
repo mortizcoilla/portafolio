@@ -165,12 +165,28 @@ export const categories: Category[] = [
 
 export const defaultProjects = ['01', '04', '07', '10'];
 
+/**
+ * Regla de filtrado:
+ *  - "Todos" → muestra los proyectos destacados (defaultProjects), uno por categoría.
+ *  - Una categoría específica → hasta 4 proyectos de esa categoría.
+ *
+ * Lógica pura, separada de React para poder testearla sin renderizar nada.
+ */
+export function getFilteredProjects(categoryId: Category['id']): Project[] {
+  if (categoryId === 'todos') {
+    return projects.filter((p) => defaultProjects.includes(p.id));
+  }
+  return projects.filter((p) => p.category === categoryId).slice(0, 4);
+}
+
 // ---------------------------------------------------------------------------
 // Modelo usado por el gráfico Frontera Eficiente (ScatterPlot). No eliminar:
 // app/components/ScatterPlot.tsx importa PROJECTS y HIGHLIGHT_EVENT.
 // ---------------------------------------------------------------------------
 
 export interface FrontierProject {
+  /** ID de la card en `projects` (sin padding) — permite el cross-link al hacer click. */
+  slug: string;
   title: string;
   sector: string;
   duration: string;
@@ -182,6 +198,7 @@ export interface FrontierProject {
 
 export const PROJECTS: FrontierProject[] = [
   {
+    slug: '04',
     title: 'Optimización de tarifa eléctrica industrial',
     sector: 'Manufactura · Energía',
     duration: '12 semanas',
@@ -190,6 +207,7 @@ export const PROJECTS: FrontierProject[] = [
     y: 8.2,
   },
   {
+    slug: '01',
     title: 'Predicción de demanda para red de distribución',
     sector: 'Utilities',
     duration: '8 semanas',
@@ -198,6 +216,7 @@ export const PROJECTS: FrontierProject[] = [
     y: 7.1,
   },
   {
+    slug: '05',
     title: 'Asignación óptima de recursos productivos',
     sector: 'Manufactura',
     duration: '16 semanas',
@@ -206,6 +225,7 @@ export const PROJECTS: FrontierProject[] = [
     y: 6.2,
   },
   {
+    slug: '07',
     title: 'Pricing dinámico para mercado spot',
     sector: 'Energía · Finanzas',
     duration: '10 semanas',

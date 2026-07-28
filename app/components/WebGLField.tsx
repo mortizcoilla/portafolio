@@ -1,10 +1,11 @@
 'use client';
 
-import { useEffect, useMemo, useRef } from 'react';
+import { useEffect, useMemo, useRef, useState } from 'react';
 import type { RefObject } from 'react';
 import { Canvas, useFrame, useThree } from '@react-three/fiber';
 import * as THREE from 'three';
 import fragmentShader from '../shaders/vectorField.frag';
+import fragmentShaderLite from '../shaders/vectorField.lite.frag';
 
 const vertexShader = /* glsl */ `
   void main() {
@@ -17,13 +18,45 @@ const vertexShader = /* glsl */ `
 const IDLE_DELAY_MS = 200;
 const SPEED_DECAY = 1.2;
 
-function FieldQuad({ containerRef }: { containerRef: RefObject<HTMLDivElement> }) {
+/**
+ * Detecta si debemos usar el shader "lite" (mobile, tablets viejos, GPU integrada).
+ * Heurística:
+ *   - Viewport pequeño (≤768px) → mobile
+ *   - Pocos cores lógicos (<4) → dispositivo de gama baja
+ *   - WEBGL_debug_renderer_info con GPU integrada Intel/Adreno/Mali → lite
+ */
+function shouldUseLiteShader(): boolean {
+  if (typeof window === 'undefined') return false;
+  if (window.matchMedia('(max-width: 768px)').matches) return true;
+  if (window.navigator.hardwareConcurrency && window.navigator.hardwareConcurrency < 4) return true;
+  try {
+    const canvas = document.createElement('canvas');
+    const gl = (canvas.getContext('webgl') ||
+      canvas.getContext('experimental-webgl')) as WebGLRenderingContext | null;
+    if (!gl) return true;
+    const ext = gl.getExtension('WEBGL_debug_renderer_info');
+    if (ext) {
+      const renderer = String(gl.getParameter(ext.UNMASKED_RENDERER_WEBGL) || '');
+      if (/Intel|HD Graphics|Mali|Adreno|PowerVR/.test(renderer)) return true;
+    }
+  } catch {
+    // Si falla la detección, usa el shader completo
+  }
+  return false;
+}
+
+interface FieldQuadProps {
+  containerRef: RefObject<HTMLDivElement>;
+  lite: boolean;
+}
+
+function FieldQuad({ containerRef, lite }: FieldQuadProps) {
   const uniforms = useMemo(
     () => ({
       u_time: { value: 0 },
       u_mouse: { value: new THREE.Vector2(0.5, 0.5) },
       u_mouse_idle: { value: new THREE.Vector2(0.5, 0.5) },
-      u_mouse_speed: { value: 0 }, // arranca en idle: deriva alrededor del centro
+      u_mouse_speed: { value: 0 },
       u_res: { value: new THREE.Vector2(1, 1) },
     }),
     [],
@@ -58,28 +91,17 @@ function FieldQuad({ containerRef }: { containerRef: RefObject<HTMLDivElement> }
   }, [uniforms]);
 
   useFrame((state, delta) => {
-    // Fuera de viewport no se encadena el siguiente frame → loop detenido
     if (!inViewRef.current) return;
-
-    // Delta capado por si la pestaña estuvo en segundo plano
     uniforms.u_time.value += Math.min(delta, 0.05);
-
-    // La velocidad decae siempre; cada pointermove la devuelve a 1
     uniforms.u_mouse_speed.value = Math.max(0, uniforms.u_mouse_speed.value - delta * SPEED_DECAY);
 
     const lerped = uniforms.u_mouse.value.lerp(target.current, 0.07);
-
-    // Cursor detenido: la base de la deriva pasa a ser la última posición
-    // suavizada, así la transición activo→idle no da ningún salto
-    if (performance.now() - lastMoveAt.current > IDLE_DELAY_MS) {
+    if (!lite && performance.now() - lastMoveAt.current > IDLE_DELAY_MS) {
       uniforms.u_mouse_idle.value.copy(lerped);
     }
 
     const dpr = state.viewport.dpr;
     uniforms.u_res.value.set(state.size.width * dpr, state.size.height * dpr);
-
-    // El campo SIEMPRE se mueve mientras esté en viewport: se invalida cada
-    // frame (frameloop="demand" + encadenado = loop continuo auto-pausable)
     invalidate();
   });
 
@@ -89,7 +111,7 @@ function FieldQuad({ containerRef }: { containerRef: RefObject<HTMLDivElement> }
       <shaderMaterial
         uniforms={uniforms}
         vertexShader={vertexShader}
-        fragmentShader={fragmentShader}
+        fragmentShader={lite ? fragmentShaderLite : fragmentShader}
       />
     </mesh>
   );
@@ -98,16 +120,21 @@ function FieldQuad({ containerRef }: { containerRef: RefObject<HTMLDivElement> }
 /** Campo vectorial WebGL: sigue al cursor y deriva suavemente cuando se detiene. */
 export default function WebGLField() {
   const containerRef = useRef<HTMLDivElement>(null);
+  const [lite, setLite] = useState(false);
+
+  useEffect(() => {
+    setLite(shouldUseLiteShader());
+  }, []);
 
   return (
     <div ref={containerRef} className="h-full w-full">
       <Canvas
         frameloop="demand"
-        dpr={[1, 1.5]}
+        dpr={lite ? [1, 1] : [1, 1.5]}
         gl={{ antialias: false, alpha: false, powerPreference: 'high-performance' }}
         style={{ pointerEvents: 'none' }}
       >
-        <FieldQuad containerRef={containerRef} />
+        <FieldQuad containerRef={containerRef} lite={lite} />
       </Canvas>
     </div>
   );

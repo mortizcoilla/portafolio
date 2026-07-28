@@ -5,7 +5,11 @@ function cellValue(seed: number, i: number): string {
   const x = Math.sin(seed * 127.1 + i * 311.7) * 43758.5453;
   const f = x - Math.floor(x);
   if (f < 0.4) return `${(f * 100).toFixed(1)}%`;
-  if (f < 0.7) return `0x${Math.floor(f * 65535).toString(16).toUpperCase().padStart(4, '0')}`;
+  if (f < 0.7)
+    return `0x${Math.floor(f * 65535)
+      .toString(16)
+      .toUpperCase()
+      .padStart(4, '0')}`;
   return (f * 10).toFixed(2);
 }
 

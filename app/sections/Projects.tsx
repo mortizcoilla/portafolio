@@ -4,16 +4,8 @@ import { memo, useCallback, useEffect, useMemo, useRef, useState } from 'react';
 import type { CSSProperties } from 'react';
 import gsap from 'gsap';
 import { useScrollFade } from '../hooks/useScrollFade';
-import { projects, categories, defaultProjects } from '../data/projects';
+import { projects, categories, getFilteredProjects } from '../data/projects';
 import type { Project, Category } from '../data/projects';
-
-/** "Todos" muestra los 4 destacados; el resto, hasta 4 por categoría. */
-function getFilteredProjects(categoryId: Category['id']): Project[] {
-  if (categoryId === 'todos') {
-    return projects.filter((p) => defaultProjects.includes(p.id));
-  }
-  return projects.filter((p) => p.category === categoryId).slice(0, 4);
-}
 
 interface ProjectCardProps {
   project: Project;
@@ -32,6 +24,8 @@ const ProjectCard = memo(function ProjectCard({
   return (
     <article
       ref={refCallback}
+      id={`proyecto-${project.id}`}
+      data-proyecto-id={project.id}
       data-converge={converge}
       className="group bg-surface p-8 transition-shadow duration-300 hover:shadow-[inset_2px_0_0_var(--card-accent)] md:p-10"
       style={{ '--card-accent': project.color } as CSSProperties}
@@ -79,7 +73,10 @@ export default function Projects() {
   // displayedCategory va por detrás de activeCategory: se actualiza al terminar la salida
   const [displayedCategory, setDisplayedCategory] = useState<Category['id']>('todos');
 
-  const visibleProjects = useMemo(() => getFilteredProjects(displayedCategory), [displayedCategory]);
+  const visibleProjects = useMemo(
+    () => getFilteredProjects(displayedCategory),
+    [displayedCategory],
+  );
   const categoryLabels = useMemo(() => new Map(categories.map((c) => [c.id, c.label])), []);
 
   const projectCardsRef = useRef<(HTMLElement | null)[]>([]);
@@ -149,9 +146,11 @@ export default function Projects() {
 
   // Limpieza de tweens al desmontar la sección
   useEffect(() => {
+    const cardsAtMount = projectCardsRef.current.filter(Boolean);
+    const indicator = indicatorRef.current;
     return () => {
-      gsap.killTweensOf(projectCardsRef.current.filter(Boolean));
-      if (indicatorRef.current) gsap.killTweensOf(indicatorRef.current);
+      gsap.killTweensOf(cardsAtMount);
+      if (indicator) gsap.killTweensOf(indicator);
     };
   }, []);
 
@@ -178,12 +177,16 @@ export default function Projects() {
     <section
       id="proyectos"
       ref={sectionRef}
-      className="mx-auto max-w-site scroll-mt-20 px-6 py-24 md:px-10 md:py-36"
+      className="mx-auto max-w-site scroll-mt-24 px-6 py-16 md:px-10 md:py-24"
     >
       <h2 className="font-mono text-xs uppercase tracking-[0.2em] text-copper">Proyectos</h2>
 
       {/* Selector de categorías */}
-      <nav className="relative mt-12" data-converge="up" aria-label="Filtrar proyectos por categoría">
+      <nav
+        className="relative mt-12"
+        data-converge="up"
+        aria-label="Filtrar proyectos por categoría"
+      >
         <div className="flex gap-8 overflow-x-auto [scrollbar-width:none] [&::-webkit-scrollbar]:hidden">
           {categories.map((cat, i) => (
             <button

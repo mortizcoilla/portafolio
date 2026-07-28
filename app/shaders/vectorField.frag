@@ -1,3 +1,7 @@
+// Campo vectorial WebGL — versión "ambiental".
+// Pensado como fondo sutil, no como protagonista: los tonos cobre solo aparecen
+// cerca del cursor y de forma contenida. La paleta base domina la composicion.
+
 precision highp float;
 
 uniform float u_time;
@@ -45,49 +49,52 @@ vec2 field(vec2 p, float t) {
 void main() {
   vec2 p = (gl_FragCoord.xy - 0.5 * u_res) / min(u_res.x, u_res.y);
 
-  // Deriva idle: el punto de atracción orbita lento alrededor de la última
-  // posición del cursor. Se reutiliza el value-noise del shader (2 evals por
-  // píxel, coste negligible en GPU):
-  //   - frecuencia baja (0.12/0.15) → movimiento lento
-  //   - amplitud 0.08 en espacio UV → desplazamiento contenido
-  //   - la posición del cursor actúa de semilla: cada sitio tiene su patrón
+  // Deriva idle: orbita lento alrededor de la última posición del cursor.
+  // Amplitud contenida (0.025 UV) para que no domine la escena.
   vec2 idleOffset = vec2(
-    noise(vec2(u_time * 0.15, u_mouse_idle.x * 2.0)) * 2.0 - 1.0,
-    noise(vec2(u_time * 0.12, u_mouse_idle.y * 2.0 + 100.0)) * 2.0 - 1.0
-  ) * 0.08;
+    noise(vec2(u_time * 0.12, u_mouse_idle.x * 2.0)) * 2.0 - 1.0,
+    noise(vec2(u_time * 0.10, u_mouse_idle.y * 2.0 + 100.0)) * 2.0 - 1.0
+  ) * 0.025;
 
-  // Cursor en movimiento → sigue a u_mouse; detenido → deriva idle
+  // Blend activo→idle. Cuando el cursor está quieto la base pasa a idle.
   float idleBlend = smoothstep(0.0, 1.0, 1.0 - clamp(u_mouse_speed, 0.0, 1.0));
   vec2 mousePos = mix(u_mouse, u_mouse_idle + idleOffset, idleBlend);
 
   vec2 mp = (mousePos * u_res - 0.5 * u_res) / min(u_res.x, u_res.y);
 
   vec2 dm = p - mp;
-  float mouseForce = exp(-dot(dm, dm) * 5.0);
+  // mouseForce más localizado: con 8.0 la influencia del cursor cae rápido
+  // y no pinta un disco gigante de cobre.
+  float mouseForce = exp(-dot(dm, dm) * 8.0);
 
   // Advección hacia atrás a lo largo del campo → líneas de flujo.
-  // Cerca del cursor el campo diverge (repulsión suave).
+  // Cerca del cursor el campo diverge (repulsión suave, contenida).
   vec2 q = p;
   for (int i = 0; i < 6; i++) {
     vec2 f = field(q, u_time);
-    f += normalize(dm + 0.0001) * mouseForce * 1.35;
+    f += normalize(dm + 0.0001) * mouseForce * 0.7;
     q -= f * 0.075;
   }
 
   float n = fbm(q * 3.0);
   float ridge = 1.0 - abs(n * 2.0 - 1.0);
-  ridge = pow(ridge, 6.0);
+  // pow alto: solo el núcleo del ridge se ilumina, no toda la superficie
+  ridge = pow(ridge, 18.0);
 
-  vec3 base = vec3(0.039, 0.039, 0.059);   // #0A0A0F
-  vec3 cold = vec3(0.290, 0.420, 0.486);   // #4A6B7C
-  vec3 copper = vec3(0.769, 0.659, 0.510); // #C4A882
+  // Paleta
+  vec3 base = vec3(0.039, 0.039, 0.059);    // #0A0A0F
+  vec3 cold = vec3(0.290, 0.420, 0.486);    // #4A6B7C
+  vec3 copper = vec3(0.769, 0.659, 0.510);  // #C4A882
 
+  // Mezcla muy contenida: cold aparece sutilmente (max ~8%), copper casi
+  // imperceptible excepto justo en el cursor (max ~15%).
   vec3 col = base;
-  col = mix(col, cold, ridge * 0.5);
-  col = mix(col, copper, clamp(ridge * mouseForce * 1.6, 0.0, 1.0));
+  col = mix(col, cold, ridge * 0.16);
+  col = mix(col, copper, clamp(ridge * mouseForce * 0.25, 0.0, 0.30));
 
-  // Viñeta suave
-  col = mix(base, col, smoothstep(1.25, 0.35, length(p)));
+  // Viñeta fuerte: el centro del frame queda dominado por base, los bordes
+  // absorben el frío/cobre de forma contenida.
+  col = mix(base, col, smoothstep(1.2, 0.2, length(p)));
 
   gl_FragColor = vec4(col, 1.0);
 }

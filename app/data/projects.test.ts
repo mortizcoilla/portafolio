@@ -2,8 +2,8 @@ import { describe, it, expect } from 'vitest';
 import { projects, categories, defaultProjects, getFilteredProjects } from './projects';
 
 describe('projects data', () => {
-  it('exposes 12 projects across 4 categories', () => {
-    expect(projects).toHaveLength(12);
+  it('exposes 21 projects across 4 categories', () => {
+    expect(projects).toHaveLength(21);
     const distinctCategories = new Set(projects.map((p) => p.category));
     expect(distinctCategories.size).toBe(4);
   });
@@ -21,12 +21,12 @@ describe('projects data', () => {
 });
 
 describe('categories', () => {
-  it('exposes todos + 4 categorías (5 total)', () => {
+  it('exposes todos + 4 categorias (5 total)', () => {
     expect(categories).toHaveLength(5);
     expect(categories[0].id).toBe('todos');
   });
 
-  it('cada id de categoría existe en algún proyecto', () => {
+  it('cada id de categoria existe en algun proyecto', () => {
     const projectCategories = new Set(projects.map((p) => p.category));
     for (const cat of categories) {
       if (cat.id === 'todos') continue;
@@ -36,20 +36,20 @@ describe('categories', () => {
 });
 
 describe('getFilteredProjects', () => {
-  it('"todos" devuelve los 4 proyectos destacados, uno por categoría', () => {
+  it('"todos" devuelve los 4 proyectos destacados, uno por categoria', () => {
     const filtered = getFilteredProjects('todos');
     expect(filtered).toHaveLength(4);
     const ids = filtered.map((p) => p.id);
     expect(ids).toEqual(expect.arrayContaining(defaultProjects));
   });
 
-  it('"todos" cubre las 4 categorías sin repetir', () => {
+  it('"todos" cubre las 4 categorias sin repetir', () => {
     const filtered = getFilteredProjects('todos');
     const cats = new Set(filtered.map((p) => p.category));
     expect(cats.size).toBe(4);
   });
 
-  it('una categoría específica devuelve solo proyectos de esa categoría', () => {
+  it('una categoria especifica devuelve solo proyectos de esa categoria', () => {
     const filtered = getFilteredProjects('optimization');
     expect(filtered.length).toBeGreaterThan(0);
     for (const p of filtered) {
@@ -57,20 +57,20 @@ describe('getFilteredProjects', () => {
     }
   });
 
-  it('una categoría específica respeta el límite de 4 proyectos', () => {
+  it('una categoria especifica respeta el limite de 4 proyectos', () => {
     const filtered = getFilteredProjects('data-science');
     expect(filtered.length).toBeLessThanOrEqual(4);
   });
 
   it('preserva el orden original del array projects', () => {
-    const dataScience = getFilteredProjects('data-science');
-    const dataScienceOriginal = projects.filter((p) => p.category === 'data-science');
-    expect(dataScience.map((p) => p.id)).toEqual(dataScienceOriginal.map((p) => p.id));
+    // Usamos optimization que tiene solo 2 proyectos (no recorta)
+    const optimization = getFilteredProjects('optimization');
+    const optimizationOriginal = projects.filter((p) => p.category === 'optimization');
+    expect(optimization.map((p) => p.id)).toEqual(optimizationOriginal.map((p) => p.id));
   });
 
-  it('el límite de 4 recorta en orden de aparición, no de forma aleatoria', () => {
-    // data-science tiene 3 proyectos → no recorta. Probamos con optimization
-    // (3 proyectos) y bi-analytics (3 proyectos) para confirmar que no añade ruido.
+  it('el limite de 4 recorta en orden de aparicion, no de forma aleatoria', () => {
+    // bi-analytics tiene 7 proyectos -> recorta a 4. Verificamos que no anade ruido.
     for (const cat of ['data-science', 'optimization', 'energy-markets', 'bi-analytics'] as const) {
       const filtered = getFilteredProjects(cat);
       expect(filtered.every((p) => p.category === cat)).toBe(true);

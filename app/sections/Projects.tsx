@@ -4,7 +4,7 @@ import { memo, useCallback, useEffect, useMemo, useRef, useState } from 'react';
 import type { CSSProperties } from 'react';
 import gsap from 'gsap';
 import { useScrollFade } from '../hooks/useScrollFade';
-import { projects, categories, getFilteredProjects } from '../data/projects';
+import { projects, categories, defaultProjects } from '../data/projects';
 import type { Project, Category } from '../data/projects';
 
 interface ProjectCardProps {
@@ -72,11 +72,24 @@ export default function Projects() {
   const [activeCategory, setActiveCategory] = useState<Category['id']>('todos');
   // displayedCategory va por detrás de activeCategory: se actualiza al terminar la salida
   const [displayedCategory, setDisplayedCategory] = useState<Category['id']>('todos');
+  const [expanded, setExpanded] = useState(false);
 
-  const visibleProjects = useMemo(
-    () => getFilteredProjects(displayedCategory),
-    [displayedCategory],
-  );
+  const visibleProjects = useMemo(() => {
+    if (displayedCategory === 'todos') {
+      return projects.filter((p) => defaultProjects.includes(p.id));
+    }
+    const all = projects.filter((p) => p.category === displayedCategory);
+    return expanded ? all : all.slice(0, 4);
+  }, [displayedCategory, expanded]);
+
+  const totalInCategory = useMemo(() => {
+    if (displayedCategory === 'todos') return 0;
+    return projects.filter((p) => p.category === displayedCategory).length;
+  }, [displayedCategory]);
+
+  const hasMore = totalInCategory > 4;
+  const hiddenCount = totalInCategory - 4;
+
   const categoryLabels = useMemo(() => new Map(categories.map((c) => [c.id, c.label])), []);
 
   const projectCardsRef = useRef<(HTMLElement | null)[]>([]);
@@ -131,6 +144,7 @@ export default function Projects() {
   // Entrada de las nuevas tarjetas tras filtrar (solo cuando el filtro las cambió)
   useEffect(() => {
     if (!hasFilteredRef.current) return;
+    hasFilteredRef.current = false;
     // Compactar refs: React pasa null a las desmontadas durante el commit
     projectCardsRef.current = projectCardsRef.current.filter((el): el is HTMLElement =>
       Boolean(el),
@@ -143,6 +157,23 @@ export default function Projects() {
       { opacity: 1, y: 0, scale: 1, duration: 0.5, stagger: 0.1, ease: 'power3.out' },
     );
   }, [visibleProjects]);
+
+  // Animar tarjetas adicionales al expandir (sin afectar las primeras 4)
+  useEffect(() => {
+    if (displayedCategory === 'todos') return;
+    if (!expanded) return;
+
+    requestAnimationFrame(() => {
+      const cards = projectCardsRef.current.filter((el): el is HTMLElement => Boolean(el));
+      const newCards = cards.slice(4);
+      if (newCards.length === 0) return;
+      gsap.fromTo(
+        newCards,
+        { opacity: 0, y: 30, scale: 0.97 },
+        { opacity: 1, y: 0, scale: 1, duration: 0.5, stagger: 0.08, ease: 'power3.out' },
+      );
+    });
+  }, [expanded, displayedCategory]);
 
   // Limpieza de tweens al desmontar la sección
   useEffect(() => {
@@ -157,6 +188,7 @@ export default function Projects() {
   const handleCategoryChange = (categoryId: Category['id']) => {
     if (categoryId === activeCategory) return;
     setActiveCategory(categoryId);
+    setExpanded(false);
     hasFilteredRef.current = true;
 
     // Salida de las tarjetas actuales antes de actualizar el estado
@@ -171,6 +203,10 @@ export default function Projects() {
       ease: 'power2.in',
       onComplete: () => setDisplayedCategory(categoryId),
     });
+  };
+
+  const handleToggleExpand = () => {
+    setExpanded((prev) => !prev);
   };
 
   return (
@@ -226,6 +262,28 @@ export default function Projects() {
           />
         ))}
       </div>
+
+      {/* Botón Ver más / Ver menos */}
+      {hasMore && (
+        <div className="mt-10 flex justify-center">
+          <button
+            type="button"
+            onClick={handleToggleExpand}
+            className="group flex items-center gap-2 font-display text-sm uppercase tracking-[0.03em] text-secondary transition-colors duration-300 hover:text-copper"
+          >
+            <span>{expanded ? 'Ver menos' : `Ver más (${hiddenCount})`}</span>
+            <svg
+              className={`h-4 w-4 transition-transform duration-300 ${expanded ? 'rotate-180' : ''}`}
+              fill="none"
+              viewBox="0 0 24 24"
+              stroke="currentColor"
+              strokeWidth={2}
+            >
+              <path strokeLinecap="round" strokeLinejoin="round" d="M19 9l-7 7-7-7" />
+            </svg>
+          </button>
+        </div>
+      )}
     </section>
   );
 }

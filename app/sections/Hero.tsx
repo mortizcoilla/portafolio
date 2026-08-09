@@ -6,6 +6,7 @@ import gsap from 'gsap';
 import { LinkedInIcon, GitHubIcon, MailIcon, WhatsAppIcon } from '../components/icons';
 
 const WebGLField = dynamic(() => import('../components/WebGLField'), { ssr: false });
+const SmokeField = dynamic(() => import('../components/SmokeField'), { ssr: false });
 
 // Datos centralizados: nav del Hero, footer del Contact y botones sociales引用
 // las mismas URLs. `bg` = color de marca (rellena el círculo); el icono va blanco.
@@ -86,19 +87,10 @@ const NAV_LINKS = [
       ref={rootRef}
       className="relative flex min-h-screen flex-col justify-center overflow-hidden py-24"
     >
-      {/* Fondo: WebGL en desktop, gradiente CSS en mobile. */}
+      {/* Fondo: WebGL en desktop, humo CSS animado en mobile. Ambos
+          respetan el fade-on-scroll del ref `canvasRef`. */}
       <div ref={canvasRef} aria-hidden="true" className="absolute inset-0 will-change-[opacity]">
-        {webglEnabled ? (
-          <WebGLField />
-        ) : (
-          <div
-            className="absolute inset-0"
-            style={{
-              background:
-                'radial-gradient(ellipse 80% 50% at 25% 50%, rgba(74, 107, 124, 0.12), transparent 70%), radial-gradient(ellipse 60% 50% at 80% 70%, rgba(196, 168, 130, 0.06), transparent 70%), #0A0A0F',
-            }}
-          />
-        )}
+        {webglEnabled ? <WebGLField /> : <SmokeField />}
       </div>
 
       <div className="relative z-10 mx-auto w-full max-w-site px-6 md:px-10">

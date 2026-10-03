@@ -104,10 +104,11 @@ export const projects: Project[] = [
     title: 'Estimacion de CAPEX y Peajes (VATT) de Transmision Electrica',
     sector: 'Energia · Regulacion',
     duration: '14 semanas',
-    technique: 'Regresion log-lineal, Monte Carlo, Python',
-    result: 'Elasticidad CAPEX/km vs tension ≈ 1,76 (R²=0,69)',
+    technique: 'Regresion log-lineal (n=35 obras), Monte Carlo 10k, formula VATT CNE',
+    result: 'Elasticidad CAPEX/tension 1,76 (R²=0,69); bandas VATT P50/P90 por simulacion',
     category: 'energy-markets',
     color: '#D4A03A',
+    href: 'https://capex-blond.vercel.app/',
     archived: true,
   },
 

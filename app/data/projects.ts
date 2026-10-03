@@ -130,6 +130,7 @@ export const projects: Project[] = [
     result: 'AUC 0,94-0,99 por cluster, 8.029 cuentas-periodo',
     category: 'data-science',
     color: '#4A6B7C',
+    href: 'https://data-score.vercel.app/',
   },
   {
     id: '11',

@@ -10,7 +10,7 @@ describe('projects data', () => {
   });
 
   it('maximo 4 visibles por categoria', () => {
-    for (const cat of ['data-science', 'optimization', 'energy-markets', 'bi-analytics'] as const) {
+    for (const cat of ['data-science', 'optimization', 'energy-markets', 'sociedad'] as const) {
       expect(projects.filter((p) => !p.archived && p.category === cat).length).toBeLessThanOrEqual(4);
     }
   });
@@ -85,7 +85,7 @@ describe('getFilteredProjects', () => {
 
   it('el limite de 4 recorta en orden de aparicion, no de forma aleatoria', () => {
     // Los archivados nunca aparecen en ningun filtro.
-    for (const cat of ['data-science', 'optimization', 'energy-markets', 'bi-analytics'] as const) {
+    for (const cat of ['data-science', 'optimization', 'energy-markets', 'sociedad'] as const) {
       const filtered = getFilteredProjects(cat);
       expect(filtered.every((p) => p.category === cat && !p.archived)).toBe(true);
     }

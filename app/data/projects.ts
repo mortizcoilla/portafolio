@@ -4,10 +4,10 @@
 // Regla de archivo (mantener consistencia al agregar proyectos):
 //  - MERCADOS ENERGETICOS: el objeto de estudio es el mercado electrico o su
 //    regulacion (analisis de mercado, precios, normativa), independiente del metodo.
-//  - CIENCIA DE DATOS / OPTIMIZACION / BI: clasificacion por METODO dominante
-//    (ML/estadistica; decision matematica/MILP; visualizacion e indices), para
-//    cualquier dominio. Ej: forecasting de demanda -> data-science aunque sea
-//    energia; analisis del precio spot -> energy-markets aunque use ML.
+//  - CIENCIA DE DATOS / OPTIMIZACION / SOCIEDAD: clasificacion por METODO dominante
+//    (ML/estadistica; decision matematica/MILP; monitores e indices sobre datos
+//    publicos), para cualquier dominio. Ej: forecasting de demanda -> data-science
+//    aunque sea energia; analisis del precio spot -> energy-markets aunque use ML.
 
 export interface Project {
   id: string;
@@ -17,7 +17,7 @@ export interface Project {
   duration: string;
   technique: string;
   result: string;
-  category: 'data-science' | 'optimization' | 'energy-markets' | 'bi-analytics';
+  category: 'data-science' | 'optimization' | 'energy-markets' | 'sociedad';
   color: string;
   href?: string;
   /** Proyecto archivado: no se muestra (curaduría — máx 4 visibles por categoria). */
@@ -244,7 +244,7 @@ export const projects: Project[] = [
     duration: '6 semanas',
     technique: 'D3.js, indice compuesto IEd, 23 fuentes primarias',
     result: 'IEd ~55,2/100 (Medio), 7 modulos tematicos',
-    category: 'bi-analytics',
+    category: 'sociedad',
     color: '#8A8A95',
     href: 'https://monitor-educacion.vercel.app/',
     archived: true,
@@ -257,7 +257,7 @@ export const projects: Project[] = [
     duration: '8 semanas',
     technique: 'D3.js, PCA, indice compuesto 0-100',
     result: 'IEFH con 6 dimensiones, 25 visualizaciones D3.js',
-    category: 'bi-analytics',
+    category: 'sociedad',
     color: '#8A8A95',
     href: 'https://monitor-financiero-blond.vercel.app/',
   },
@@ -269,7 +269,7 @@ export const projects: Project[] = [
     duration: '8 semanas',
     technique: 'D3.js, indice compuesto, normalizacion min-max',
     result: 'ICML 54,3/100 (Elevado), 24 visualizaciones D3.js',
-    category: 'bi-analytics',
+    category: 'sociedad',
     color: '#8A8A95',
     href: 'https://monitor-laboral.vercel.app/',
     archived: true,
@@ -280,9 +280,9 @@ export const projects: Project[] = [
     title: 'Atlas de la Realidad Nacional — Chile 2026',
     sector: 'Politicas Publicas · Chile',
     duration: '10 semanas',
-    technique: 'D3.js, analisis multidimensional, 5 cruces de datos',
+    technique: 'Scraping de indicadores estatales, indices compuestos, D3.js',
     result: '51,7/100 (Elevado), 6 monitores fuente integrados',
-    category: 'bi-analytics',
+    category: 'sociedad',
     color: '#8A8A95',
     href: 'https://monitor-realidad-nacional.vercel.app/',
   },
@@ -294,7 +294,7 @@ export const projects: Project[] = [
     duration: '8 semanas',
     technique: 'D3.js, indice compuesto, 12 fuentes primarias',
     result: 'Termometro 57,3/100 (Elevado), 7 modulos',
-    category: 'bi-analytics',
+    category: 'sociedad',
     color: '#8A8A95',
     href: 'https://monitor-salud-two.vercel.app/',
   },
@@ -306,7 +306,7 @@ export const projects: Project[] = [
     duration: '10 semanas',
     technique: 'D3.js, mapas coropleticos, indice compuesto',
     result: 'ISC 49,1/100 (Medio), mapas regionales y comunales',
-    category: 'bi-analytics',
+    category: 'sociedad',
     color: '#8A8A95',
     href: 'https://monitor-seguridad-one.vercel.app/',
   },
@@ -318,7 +318,7 @@ export const projects: Project[] = [
     duration: '6 semanas',
     technique: 'D3.js, indice compuesto IVI, 5 dimensiones',
     result: 'IVI 42/100 (Medio), 7 modulos tematicos',
-    category: 'bi-analytics',
+    category: 'sociedad',
     color: '#8A8A95',
     href: 'https://monitor-vivienda.vercel.app/',
     archived: true,
@@ -326,7 +326,7 @@ export const projects: Project[] = [
 ];
 
 export interface Category {
-  id: 'todos' | 'data-science' | 'optimization' | 'energy-markets' | 'bi-analytics';
+  id: 'todos' | 'data-science' | 'optimization' | 'energy-markets' | 'sociedad';
   label: string;
   color: string;
 }
@@ -336,7 +336,7 @@ export const categories: Category[] = [
   { id: 'data-science', label: 'Ciencia de Datos', color: '#4A6B7C' },
   { id: 'optimization', label: 'Optimizacion', color: '#C4A882' },
   { id: 'energy-markets', label: 'Mercados Energeticos', color: '#D4A03A' },
-  { id: 'bi-analytics', label: 'BI & Analytics', color: '#8A8A95' },
+  { id: 'sociedad', label: 'Sociedad', color: '#8A8A95' },
 ];
 
 export const defaultProjects = ['11', '17', '02', '21'];

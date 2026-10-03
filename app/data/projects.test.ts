@@ -2,8 +2,8 @@ import { describe, it, expect } from 'vitest';
 import { projects, categories, defaultProjects, getFilteredProjects } from './projects';
 
 describe('projects data', () => {
-  it('exposes 22 projects across 4 categories', () => {
-    expect(projects).toHaveLength(22);
+  it('exposes 23 projects across 4 categories', () => {
+    expect(projects).toHaveLength(23);
     const distinctCategories = new Set(projects.map((p) => p.category));
     expect(distinctCategories.size).toBe(4);
   });

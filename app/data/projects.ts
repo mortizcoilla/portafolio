@@ -1,4 +1,4 @@
-// Datos de la seccion Proyectos: 22 proyectos en 4 categorias + filtro "Todos".
+// Datos de la seccion Proyectos: 23 proyectos en 4 categorias + filtro "Todos".
 
 export interface Project {
   id: string;
@@ -94,7 +94,7 @@ export const projects: Project[] = [
     color: '#D4A03A',
   },
 
-  // ─── DATA-SCIENCE (5 proyectos) ───
+  // ─── DATA-SCIENCE (6 proyectos) ───
   {
     id: '08',
     number: '08',
@@ -151,11 +151,23 @@ export const projects: Project[] = [
     category: 'data-science',
     color: '#4A6B7C',
   },
-
-  // ─── OPTIMIZATION (3 proyectos) ───
   {
     id: '13',
     number: '13',
+    title: 'Salud Probabilistica de Transformadores',
+    sector: 'Utilities · Gestion de Activos',
+    duration: '10 semanas',
+    technique: 'LightGBM cuantilico, CQR, Random Survival Forest, SHAP, D3.js',
+    result: 'HI q05/q50/q95 con bandas CQR 95% y RUL condicional en flota de 121 unidades',
+    category: 'data-science',
+    color: '#4A6B7C',
+    href: 'https://transformadores-murex.vercel.app/',
+  },
+
+  // ─── OPTIMIZATION (3 proyectos) ───
+  {
+    id: '14',
+    number: '14',
     title: 'Optimizacion de Tarifa Electrica Industrial — Chile',
     sector: 'Manufactura · Energia',
     duration: '14 semanas',
@@ -165,8 +177,8 @@ export const projects: Project[] = [
     color: '#C4A882',
   },
   {
-    id: '14',
-    number: '14',
+    id: '15',
+    number: '15',
     title: 'Optimizacion de Carteras de Inversion',
     sector: 'Finanzas',
     duration: '8 semanas',
@@ -176,8 +188,8 @@ export const projects: Project[] = [
     color: '#C4A882',
   },
   {
-    id: '15',
-    number: '15',
+    id: '16',
+    number: '16',
     title: 'Ventanas de Mantenimiento de Transmision — SEN',
     sector: 'Energia · Transmision',
     duration: '12 semanas',
@@ -190,8 +202,8 @@ export const projects: Project[] = [
 
   // ─── BI-ANALYTICS (7 proyectos) ───
   {
-    id: '16',
-    number: '16',
+    id: '17',
+    number: '17',
     title: 'Monitor Socioeconomico de la Educacion Escolar (MEd)',
     sector: 'Educacion · Politicas Publicas',
     duration: '6 semanas',
@@ -202,8 +214,8 @@ export const projects: Project[] = [
     href: 'https://monitor-educacion.vercel.app/',
   },
   {
-    id: '17',
-    number: '17',
+    id: '18',
+    number: '18',
     title: 'Monitor Financiero de los Hogares Chilenos (IEFH)',
     sector: 'Finanzas · Banca Central',
     duration: '8 semanas',
@@ -214,8 +226,8 @@ export const projects: Project[] = [
     href: 'https://monitor-financiero-blond.vercel.app/',
   },
   {
-    id: '18',
-    number: '18',
+    id: '19',
+    number: '19',
     title: 'Monitor Socioeconomico del Mercado Laboral (ICML)',
     sector: 'Economia · Trabajo',
     duration: '8 semanas',
@@ -226,8 +238,8 @@ export const projects: Project[] = [
     href: 'https://monitor-laboral.vercel.app/',
   },
   {
-    id: '19',
-    number: '19',
+    id: '20',
+    number: '20',
     title: 'Atlas de la Realidad Nacional — Chile 2026',
     sector: 'Politicas Publicas · Chile',
     duration: '10 semanas',
@@ -238,8 +250,8 @@ export const projects: Project[] = [
     href: 'https://monitor-realidad-nacional.vercel.app/',
   },
   {
-    id: '20',
-    number: '20',
+    id: '21',
+    number: '21',
     title: 'Monitor Socioeconomico de la Salud (MSS)',
     sector: 'Salud · Politicas Publicas',
     duration: '8 semanas',
@@ -250,8 +262,8 @@ export const projects: Project[] = [
     href: 'https://monitor-salud-two.vercel.app/',
   },
   {
-    id: '21',
-    number: '21',
+    id: '22',
+    number: '22',
     title: 'Chile en la Mira — Radiografia del Delito (ISC)',
     sector: 'Seguridad · Justicia',
     duration: '10 semanas',
@@ -262,8 +274,8 @@ export const projects: Project[] = [
     href: 'https://monitor-seguridad-one.vercel.app/',
   },
   {
-    id: '22',
-    number: '22',
+    id: '23',
+    number: '23',
     title: 'Monitor Socioeconomico de la Vivienda (MVI)',
     sector: 'Vivienda · Urbanismo',
     duration: '6 semanas',
@@ -289,7 +301,7 @@ export const categories: Category[] = [
   { id: 'bi-analytics', label: 'BI & Analytics', color: '#8A8A95' },
 ];
 
-export const defaultProjects = ['11', '13', '02', '19'];
+export const defaultProjects = ['11', '14', '02', '20'];
 
 /**
  * Regla de filtrado:
@@ -324,7 +336,7 @@ export interface FrontierProject {
 
 export const PROJECTS: FrontierProject[] = [
   {
-    slug: '13',
+    slug: '14',
     title: 'Optimizacion de Tarifa Electrica Industrial — Chile',
     sector: 'Manufactura · Energia',
     duration: '14 semanas',
@@ -351,7 +363,7 @@ export const PROJECTS: FrontierProject[] = [
     y: 6.2,
   },
   {
-    slug: '19',
+    slug: '20',
     title: 'Atlas de la Realidad Nacional — Chile 2026',
     sector: 'Politicas Publicas · Chile',
     duration: '10 semanas',

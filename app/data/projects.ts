@@ -141,6 +141,7 @@ export const projects: Project[] = [
     result: 'Pipeline reproducible sobre 270k cuentas-periodo',
     category: 'data-science',
     color: '#4A6B7C',
+    href: 'https://propension.vercel.app/',
   },
   {
     id: '12',

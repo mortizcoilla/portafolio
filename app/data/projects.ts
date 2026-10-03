@@ -1,9 +1,11 @@
 // Datos de la seccion Proyectos: 24 proyectos (15 visibles + 9 archivados por
-// curaduría) en 4 categorias + filtro "Todos" con el mejor de cada categoria.
+// curaduría) en 5 categorias + filtro "Todos" con el mejor de cada categoria.
 //
 // Regla de archivo (mantener consistencia al agregar proyectos):
 //  - MERCADOS ENERGETICOS: el objeto de estudio es el mercado electrico o su
 //    regulacion (analisis de mercado, precios, normativa), independiente del metodo.
+//  - FINANZAS: activos y mercados financieros (asset pricing, carteras,
+//    trading), tambien cruzado con energia (spot, CMG).
 //  - CIENCIA DE DATOS / OPTIMIZACION / SOCIEDAD: clasificacion por METODO dominante
 //    (ML/estadistica; decision matematica/MILP; monitores e indices sobre datos
 //    publicos), para cualquier dominio. Ej: forecasting de demanda -> data-science
@@ -25,7 +27,7 @@ export interface Project {
 }
 
 export const projects: Project[] = [
-  // ─── ENERGY-MARKETS (7 proyectos) ───
+  // ─── MERCADOS ENERGETICOS (6) ───
   {
     id: '01',
     number: '01',
@@ -78,18 +80,6 @@ export const projects: Project[] = [
   {
     id: '05',
     number: '05',
-    title: 'Pricing Dinamico del Mercado SPOT Electrico Chileno',
-    sector: 'Energia · Trading',
-    duration: '12 semanas',
-    technique: 'Analisis de mercado spot, comparativa internacional',
-    result: 'Estudio academico de 10 partes con pagina web interactiva',
-    category: 'energy-markets',
-    color: '#D4A03A',
-    href: 'https://spot-beta-one.vercel.app/',
-  },
-  {
-    id: '06',
-    number: '06',
     title: 'CMG Forecast Study — Sistema Electrico Nacional',
     sector: 'Energia · Trading',
     duration: '10 semanas',
@@ -100,8 +90,8 @@ export const projects: Project[] = [
     href: 'https://cmgmarginal.vercel.app/',
   },
   {
-    id: '07',
-    number: '07',
+    id: '06',
+    number: '06',
     title: 'Estimacion de CAPEX y Peajes (VATT) de Transmision Electrica',
     sector: 'Energia · Regulacion',
     duration: '14 semanas',
@@ -111,11 +101,59 @@ export const projects: Project[] = [
     color: '#D4A03A',
     href: 'https://capex-blond.vercel.app/',
   },
-
-  // ─── DATA-SCIENCE (7 proyectos) ───
+  // ─── FINANZAS (4) ───
+  {
+    id: '07',
+    number: '07',
+    title: 'Pricing Dinamico del Mercado SPOT Electrico Chileno',
+    sector: 'Energia · Trading',
+    duration: '12 semanas',
+    technique: 'Analisis de mercado spot, comparativa internacional',
+    result: 'Estudio academico de 10 partes con pagina web interactiva',
+    category: 'finanzas',
+    color: '#D4A03A',
+    href: 'https://spot-beta-one.vercel.app/',
+  },
   {
     id: '08',
     number: '08',
+    title: 'El Factor que Divide a Chile — Fama-French en ETF',
+    sector: 'Finanzas · Asset Pricing',
+    duration: '14 semanas',
+    technique: 'Regresiones panel, GRS, bootstrap, Python 3.11+',
+    result: 'H1 confirmada: diferencial beta 0,756 (p = 0,0008)',
+    category: 'finanzas',
+    color: '#4A6B7C',
+    href: 'https://famafrench.vercel.app/',
+  },
+  {
+    id: '09',
+    number: '09',
+    title: 'Optimizacion de Carteras de Inversion',
+    sector: 'Finanzas',
+    duration: '8 semanas',
+    technique: 'Markowitz, risk parity (ERC), max-Sharpe, cvxpy, backtest rolling',
+    result: '6 estrategias sobre 30 acciones del IPSA, 14 anos y 4 crisis',
+    category: 'finanzas',
+    color: '#C4A882',
+    href: 'https://optimizacion-de-carteras-lohx.vercel.app/',
+  },
+  {
+    id: '10',
+    number: '10',
+    title: 'Monitor Financiero de los Hogares Chilenos (IEFH)',
+    sector: 'Finanzas · Banca Central',
+    duration: '8 semanas',
+    technique: 'D3.js, PCA, indice compuesto 0-100',
+    result: 'IEFH con 6 dimensiones, 25 visualizaciones D3.js',
+    category: 'finanzas',
+    color: '#8A8A95',
+    href: 'https://monitor-financiero-blond.vercel.app/',
+  },
+  // ─── CIENCIA DE DATOS (6) ───
+  {
+    id: '11',
+    number: '11',
     title: 'Prediccion de Demanda Electrica Residencial en Chile',
     sector: 'Utilities · Energia',
     duration: '10 semanas',
@@ -124,36 +162,10 @@ export const projects: Project[] = [
     category: 'data-science',
     color: '#4A6B7C',
     href: 'https://demanda-electrica-residencial.vercel.app/',
-    archived: true,
   },
   {
-    id: '09',
-    number: '09',
-    title: 'El Factor que Divide a Chile — Fama-French en ETF',
-    sector: 'Finanzas · Asset Pricing',
-    duration: '14 semanas',
-    technique: 'Regresiones panel, GRS, bootstrap, Python 3.11+',
-    result: 'H1 confirmada: diferencial beta 0,756 (p = 0,0008)',
-    category: 'data-science',
-    color: '#4A6B7C',
-    href: 'https://famafrench.vercel.app/',
-  },
-  {
-    id: '10',
-    number: '10',
-    title: 'Despliegue de Score de DataMining — Hurto de Energia',
-    sector: 'Utilities · Energia',
-    duration: '8 semanas',
-    technique: 'LightGBM, segmentacion por cluster, contrato de features',
-    result: 'AUC 0,94-0,99 por cluster, 8.029 cuentas-periodo',
-    category: 'data-science',
-    color: '#4A6B7C',
-    href: 'https://data-score.vercel.app/',
-    archived: true,
-  },
-  {
-    id: '11',
-    number: '11',
+    id: '12',
+    number: '12',
     title: 'Propension a Hurto de Energia — Modelo y Despliegue',
     sector: 'Utilities · Energia',
     duration: '18 semanas',
@@ -162,18 +174,6 @@ export const projects: Project[] = [
     category: 'data-science',
     color: '#4A6B7C',
     href: 'https://propension.vercel.app/',
-  },
-  {
-    id: '12',
-    number: '12',
-    title: 'Sentinela — Plataforma Multi-Modelo de Propensity',
-    sector: 'Utilities · Energia',
-    duration: '12 semanas',
-    technique: 'MLflow, LightGBM, FastAPI, D3.js',
-    result: '2 modelos MVP (hurto + morosidad), AUC 0,94-0,99',
-    category: 'data-science',
-    color: '#4A6B7C',
-    archived: true,
   },
   {
     id: '13',
@@ -199,11 +199,35 @@ export const projects: Project[] = [
     color: '#4A6B7C',
     href: 'https://gemelo-digital-eight.vercel.app/',
   },
-
-  // ─── OPTIMIZATION (3 proyectos) ───
   {
     id: '15',
     number: '15',
+    title: 'Despliegue de Score de DataMining — Hurto de Energia',
+    sector: 'Utilities · Energia',
+    duration: '8 semanas',
+    technique: 'LightGBM, segmentacion por cluster, contrato de features',
+    result: 'AUC 0,94-0,99 por cluster, 8.029 cuentas-periodo',
+    category: 'data-science',
+    color: '#4A6B7C',
+    href: 'https://data-score.vercel.app/',
+    archived: true,
+  },
+  {
+    id: '16',
+    number: '16',
+    title: 'Sentinela — Plataforma Multi-Modelo de Propensity',
+    sector: 'Utilities · Energia',
+    duration: '12 semanas',
+    technique: 'MLflow, LightGBM, FastAPI, D3.js',
+    result: '2 modelos MVP (hurto + morosidad), AUC 0,94-0,99',
+    category: 'data-science',
+    color: '#4A6B7C',
+    archived: true,
+  },
+  // ─── OPTIMIZATION (2) ───
+  {
+    id: '17',
+    number: '17',
     title: 'Optimizacion de Tarifa Electrica Industrial — Chile',
     sector: 'Manufactura · Energia',
     duration: '14 semanas',
@@ -211,22 +235,11 @@ export const projects: Project[] = [
     result: '6 modelos de optimizacion contrastados, BESS sizing',
     category: 'optimization',
     color: '#C4A882',
+    archived: true,
   },
   {
-    id: '16',
-    number: '16',
-    title: 'Optimizacion de Carteras de Inversion',
-    sector: 'Finanzas',
-    duration: '8 semanas',
-    technique: 'Markowitz, risk parity (ERC), max-Sharpe, cvxpy, backtest rolling',
-    result: '6 estrategias sobre 30 acciones del IPSA, 14 anos y 4 crisis',
-    category: 'optimization',
-    color: '#C4A882',
-    href: 'https://optimizacion-de-carteras-lohx.vercel.app/',
-  },
-  {
-    id: '17',
-    number: '17',
+    id: '18',
+    number: '18',
     title: 'Ventanas de Mantenimiento de Transmision — SEN',
     sector: 'Energia · Transmision',
     duration: '12 semanas',
@@ -236,11 +249,46 @@ export const projects: Project[] = [
     color: '#C4A882',
     href: 'https://ventanas-five.vercel.app/',
   },
-
-  // ─── BI-ANALYTICS (7 proyectos) ───
+  // ─── SOCIEDAD (6) ───
   {
-    id: '18',
-    number: '18',
+    id: '19',
+    number: '19',
+    title: 'Atlas de la Realidad Nacional — Chile 2026',
+    sector: 'Politicas Publicas · Chile',
+    duration: '10 semanas',
+    technique: 'Scraping de indicadores estatales, indices compuestos, D3.js',
+    result: '51,7/100 (Elevado), 6 monitores fuente integrados',
+    category: 'sociedad',
+    color: '#8A8A95',
+    href: 'https://monitor-realidad-nacional.vercel.app/',
+  },
+  {
+    id: '20',
+    number: '20',
+    title: 'Monitor Socioeconomico de la Salud (MSS)',
+    sector: 'Salud · Politicas Publicas',
+    duration: '8 semanas',
+    technique: 'D3.js, indice compuesto, 12 fuentes primarias',
+    result: 'Termometro 57,3/100 (Elevado), 7 modulos',
+    category: 'sociedad',
+    color: '#8A8A95',
+    href: 'https://monitor-salud-two.vercel.app/',
+  },
+  {
+    id: '21',
+    number: '21',
+    title: 'Chile en la Mira — Radiografia del Delito (ISC)',
+    sector: 'Seguridad · Justicia',
+    duration: '10 semanas',
+    technique: 'D3.js, mapas coropleticos, indice compuesto',
+    result: 'ISC 49,1/100 (Medio), mapas regionales y comunales',
+    category: 'sociedad',
+    color: '#8A8A95',
+    href: 'https://monitor-seguridad-one.vercel.app/',
+  },
+  {
+    id: '22',
+    number: '22',
     title: 'Monitor Socioeconomico de la Educacion Escolar (MEd)',
     sector: 'Educacion · Politicas Publicas',
     duration: '6 semanas',
@@ -252,20 +300,8 @@ export const projects: Project[] = [
     archived: true,
   },
   {
-    id: '19',
-    number: '19',
-    title: 'Monitor Financiero de los Hogares Chilenos (IEFH)',
-    sector: 'Finanzas · Banca Central',
-    duration: '8 semanas',
-    technique: 'D3.js, PCA, indice compuesto 0-100',
-    result: 'IEFH con 6 dimensiones, 25 visualizaciones D3.js',
-    category: 'sociedad',
-    color: '#8A8A95',
-    href: 'https://monitor-financiero-blond.vercel.app/',
-  },
-  {
-    id: '20',
-    number: '20',
+    id: '23',
+    number: '23',
     title: 'Monitor Socioeconomico del Mercado Laboral (ICML)',
     sector: 'Economia · Trabajo',
     duration: '8 semanas',
@@ -275,42 +311,6 @@ export const projects: Project[] = [
     color: '#8A8A95',
     href: 'https://monitor-laboral.vercel.app/',
     archived: true,
-  },
-  {
-    id: '21',
-    number: '21',
-    title: 'Atlas de la Realidad Nacional — Chile 2026',
-    sector: 'Politicas Publicas · Chile',
-    duration: '10 semanas',
-    technique: 'Scraping de indicadores estatales, indices compuestos, D3.js',
-    result: '51,7/100 (Elevado), 6 monitores fuente integrados',
-    category: 'sociedad',
-    color: '#8A8A95',
-    href: 'https://monitor-realidad-nacional.vercel.app/',
-  },
-  {
-    id: '22',
-    number: '22',
-    title: 'Monitor Socioeconomico de la Salud (MSS)',
-    sector: 'Salud · Politicas Publicas',
-    duration: '8 semanas',
-    technique: 'D3.js, indice compuesto, 12 fuentes primarias',
-    result: 'Termometro 57,3/100 (Elevado), 7 modulos',
-    category: 'sociedad',
-    color: '#8A8A95',
-    href: 'https://monitor-salud-two.vercel.app/',
-  },
-  {
-    id: '23',
-    number: '23',
-    title: 'Chile en la Mira — Radiografia del Delito (ISC)',
-    sector: 'Seguridad · Justicia',
-    duration: '10 semanas',
-    technique: 'D3.js, mapas coropleticos, indice compuesto',
-    result: 'ISC 49,1/100 (Medio), mapas regionales y comunales',
-    category: 'sociedad',
-    color: '#8A8A95',
-    href: 'https://monitor-seguridad-one.vercel.app/',
   },
   {
     id: '24',
@@ -325,23 +325,25 @@ export const projects: Project[] = [
     href: 'https://monitor-vivienda.vercel.app/',
     archived: true,
   },
+
 ];
 
 export interface Category {
-  id: 'todos' | 'data-science' | 'optimization' | 'energy-markets' | 'sociedad';
+  id: 'todos' | 'energy-markets' | 'finanzas' | 'data-science' | 'optimization' | 'sociedad';
   label: string;
   color: string;
 }
 
 export const categories: Category[] = [
   { id: 'todos', label: 'Todos', color: '#C4A882' },
+  { id: 'energy-markets', label: 'Mercados Energeticos', color: '#D4A03A' },
+  { id: 'finanzas', label: 'Finanzas', color: '#4C7C59' },
   { id: 'data-science', label: 'Ciencia de Datos', color: '#4A6B7C' },
   { id: 'optimization', label: 'Optimizacion', color: '#C4A882' },
-  { id: 'energy-markets', label: 'Mercados Energeticos', color: '#D4A03A' },
   { id: 'sociedad', label: 'Sociedad', color: '#8A8A95' },
 ];
 
-export const defaultProjects = ['11', '17', '05', '19'];
+export const defaultProjects = ['05', '07', '12', '18', '20'];
 
 /**
  * Regla de filtrado:
@@ -378,7 +380,34 @@ export interface FrontierProject {
 
 export const PROJECTS: FrontierProject[] = [
   {
-    slug: '17',
+    slug: '05',
+    title: 'CMG Forecast Study — Sistema Electrico Nacional',
+    sector: 'Energia · Trading',
+    duration: '10 semanas',
+    result: 'MAE 2.53 USD/MWh, +58% mejora vs naive',
+    x: 5.8,
+    y: 7.2,
+  },
+  {
+    slug: '07',
+    title: 'Pricing Dinamico del Mercado SPOT Electrico Chileno',
+    sector: 'Energia · Trading',
+    duration: '12 semanas',
+    result: 'Estudio academico de 10 partes con pagina web interactiva',
+    x: 6.4,
+    y: 8.0,
+  },
+  {
+    slug: '12',
+    title: 'Modelo de Propension a Hurto de Energia — Modelo y Despliegue',
+    sector: 'Utilities · Energia',
+    duration: '18 semanas',
+    result: 'AUC 0,94-0,99 sobre 270k cuentas-periodo, scoring mensual',
+    x: 8.2,
+    y: 7.1,
+  },
+  {
+    slug: '18',
     title: 'Ventanas de Mantenimiento de Transmision — SEN',
     sector: 'Energia · Transmision',
     duration: '12 semanas',
@@ -387,31 +416,13 @@ export const PROJECTS: FrontierProject[] = [
     y: 8.4,
   },
   {
-    slug: '11',
-    title: 'Modelo de Propension a Hurto de Energia',
-    sector: 'Utilities · Energia',
-    duration: '10 semanas',
-    result: 'Pipeline reproducible sobre 270k cuentas-periodo',
-    x: 8.2,
-    y: 7.1,
-  },
-  {
-    slug: '05',
-    title: 'Pricing Dinamico del Mercado SPOT Electrico Chileno',
-    sector: 'Energia · Trading',
-    duration: '12 semanas',
-    result: 'Estudio academico de 10 partes con pagina web interactiva',
-    x: 5.2,
-    y: 7.8,
-  },
-  {
-    slug: '19',
-    title: 'Monitor Financiero de los Hogares Chilenos (IEFH)',
-    sector: 'Finanzas · Banca Central',
+    slug: '20',
+    title: 'Monitor Socioeconomico de la Salud (MSS)',
+    sector: 'Salud · Politicas Publicas',
     duration: '8 semanas',
-    result: 'IEFH con 6 dimensiones, 25 visualizaciones D3.js',
-    x: 8.8,
-    y: 8.4,
+    result: 'Termometro 57,3/100 (Elevado), 7 modulos',
+    x: 8.6,
+    y: 7.6,
   },
 ];
 

@@ -18,6 +18,18 @@ export default function Philosophy() {
           soluciones, cada una con un trade-off distinto. Mi trabajo es mapear esa frontera para que
           la decisión sea informada, no adivinada.
         </p>
+        <p className="col-span-12 mt-8 text-center font-body text-base font-light leading-relaxed text-secondary md:col-span-6 md:col-start-4">
+          Cuando no estoy haciendo ciencia de datos, construyo web freelance — como el sitio de{' '}
+          <a
+            href="https://convergencia.pro/"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="text-primary underline underline-offset-4 transition-colors hover:text-copper"
+          >
+            Convergencia
+          </a>{' '}
+          (formación docente) en Astro y Three.js.
+        </p>
       </div>
     </section>
   );

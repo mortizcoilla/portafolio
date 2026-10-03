@@ -19,7 +19,7 @@ export interface Project {
   duration: string;
   technique: string;
   result: string;
-  category: 'data-science' | 'optimization' | 'energy-markets' | 'sociedad';
+  category: 'data-science' | 'optimization' | 'energy-markets' | 'finanzas' | 'sociedad';
   color: string;
   href?: string;
   /** Proyecto archivado: no se muestra (curaduría — máx 4 visibles por categoria). */

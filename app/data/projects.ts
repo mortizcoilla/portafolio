@@ -81,6 +81,7 @@ export const projects: Project[] = [
     result: 'MAE 2.53 USD/MWh, +58% mejora vs naive',
     category: 'energy-markets',
     color: '#D4A03A',
+    href: 'https://cmgmarginal.vercel.app/',
   },
   {
     id: '07',

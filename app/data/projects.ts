@@ -1,4 +1,4 @@
-// Datos de la seccion Proyectos: 21 proyectos en 4 categorias + filtro "Todos".
+// Datos de la seccion Proyectos: 22 proyectos en 4 categorias + filtro "Todos".
 
 export interface Project {
   id: string;
@@ -152,7 +152,7 @@ export const projects: Project[] = [
     color: '#4A6B7C',
   },
 
-  // ─── OPTIMIZATION (2 proyectos) ───
+  // ─── OPTIMIZATION (3 proyectos) ───
   {
     id: '13',
     number: '13',
@@ -175,11 +175,23 @@ export const projects: Project[] = [
     category: 'optimization',
     color: '#C4A882',
   },
-
-  // ─── BI-ANALYTICS (7 proyectos) ───
   {
     id: '15',
     number: '15',
+    title: 'Ventanas de Mantenimiento de Transmision — SEN',
+    sector: 'Energia · Transmision',
+    duration: '12 semanas',
+    technique: 'MILP (PuLP/CBC), Bertsimas-Sim, SAA, NSGA-II, Random Forest, D3.js',
+    result: 'Frente Pareto de 15 planes, VaR/CVaR 16,0/16,9 h (95%)',
+    category: 'optimization',
+    color: '#C4A882',
+    href: 'https://ventanas-five.vercel.app/',
+  },
+
+  // ─── BI-ANALYTICS (7 proyectos) ───
+  {
+    id: '16',
+    number: '16',
     title: 'Monitor Socioeconomico de la Educacion Escolar (MEd)',
     sector: 'Educacion · Politicas Publicas',
     duration: '6 semanas',
@@ -190,8 +202,8 @@ export const projects: Project[] = [
     href: 'https://monitor-educacion.vercel.app/',
   },
   {
-    id: '16',
-    number: '16',
+    id: '17',
+    number: '17',
     title: 'Monitor Financiero de los Hogares Chilenos (IEFH)',
     sector: 'Finanzas · Banca Central',
     duration: '8 semanas',
@@ -202,8 +214,8 @@ export const projects: Project[] = [
     href: 'https://monitor-financiero-blond.vercel.app/',
   },
   {
-    id: '17',
-    number: '17',
+    id: '18',
+    number: '18',
     title: 'Monitor Socioeconomico del Mercado Laboral (ICML)',
     sector: 'Economia · Trabajo',
     duration: '8 semanas',
@@ -214,8 +226,8 @@ export const projects: Project[] = [
     href: 'https://monitor-laboral.vercel.app/',
   },
   {
-    id: '18',
-    number: '18',
+    id: '19',
+    number: '19',
     title: 'Atlas de la Realidad Nacional — Chile 2026',
     sector: 'Politicas Publicas · Chile',
     duration: '10 semanas',
@@ -226,8 +238,8 @@ export const projects: Project[] = [
     href: 'https://monitor-realidad-nacional.vercel.app/',
   },
   {
-    id: '19',
-    number: '19',
+    id: '20',
+    number: '20',
     title: 'Monitor Socioeconomico de la Salud (MSS)',
     sector: 'Salud · Politicas Publicas',
     duration: '8 semanas',
@@ -238,8 +250,8 @@ export const projects: Project[] = [
     href: 'https://monitor-salud-two.vercel.app/',
   },
   {
-    id: '20',
-    number: '20',
+    id: '21',
+    number: '21',
     title: 'Chile en la Mira — Radiografia del Delito (ISC)',
     sector: 'Seguridad · Justicia',
     duration: '10 semanas',
@@ -250,8 +262,8 @@ export const projects: Project[] = [
     href: 'https://monitor-seguridad-one.vercel.app/',
   },
   {
-    id: '21',
-    number: '21',
+    id: '22',
+    number: '22',
     title: 'Monitor Socioeconomico de la Vivienda (MVI)',
     sector: 'Vivienda · Urbanismo',
     duration: '6 semanas',
@@ -277,7 +289,7 @@ export const categories: Category[] = [
   { id: 'bi-analytics', label: 'BI & Analytics', color: '#8A8A95' },
 ];
 
-export const defaultProjects = ['11', '13', '02', '18'];
+export const defaultProjects = ['11', '13', '02', '19'];
 
 /**
  * Regla de filtrado:
@@ -339,7 +351,7 @@ export const PROJECTS: FrontierProject[] = [
     y: 6.2,
   },
   {
-    slug: '18',
+    slug: '19',
     title: 'Atlas de la Realidad Nacional — Chile 2026',
     sector: 'Politicas Publicas · Chile',
     duration: '10 semanas',

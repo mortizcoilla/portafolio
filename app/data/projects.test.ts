@@ -2,8 +2,8 @@ import { describe, it, expect } from 'vitest';
 import { projects, categories, defaultProjects, getFilteredProjects } from './projects';
 
 describe('projects data', () => {
-  it('exposes 21 projects across 4 categories', () => {
-    expect(projects).toHaveLength(21);
+  it('exposes 22 projects across 4 categories', () => {
+    expect(projects).toHaveLength(22);
     const distinctCategories = new Set(projects.map((p) => p.category));
     expect(distinctCategories.size).toBe(4);
   });
@@ -63,7 +63,7 @@ describe('getFilteredProjects', () => {
   });
 
   it('preserva el orden original del array projects', () => {
-    // Usamos optimization que tiene solo 2 proyectos (no recorta)
+    // Usamos optimization que tiene solo 3 proyectos (no recorta)
     const optimization = getFilteredProjects('optimization');
     const optimizationOriginal = projects.filter((p) => p.category === 'optimization');
     expect(optimization.map((p) => p.id)).toEqual(optimizationOriginal.map((p) => p.id));

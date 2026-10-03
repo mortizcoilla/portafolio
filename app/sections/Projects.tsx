@@ -76,15 +76,15 @@ export default function Projects() {
 
   const visibleProjects = useMemo(() => {
     if (displayedCategory === 'todos') {
-      return projects.filter((p) => defaultProjects.includes(p.id));
+      return projects.filter((p) => !p.archived && defaultProjects.includes(p.id));
     }
-    const all = projects.filter((p) => p.category === displayedCategory);
+    const all = projects.filter((p) => !p.archived && p.category === displayedCategory);
     return expanded ? all : all.slice(0, 4);
   }, [displayedCategory, expanded]);
 
   const totalInCategory = useMemo(() => {
     if (displayedCategory === 'todos') return 0;
-    return projects.filter((p) => p.category === displayedCategory).length;
+    return projects.filter((p) => !p.archived && p.category === displayedCategory).length;
   }, [displayedCategory]);
 
   const hasMore = totalInCategory > 4;

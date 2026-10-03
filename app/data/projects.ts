@@ -1,4 +1,5 @@
-// Datos de la seccion Proyectos: 24 proyectos en 4 categorias + filtro "Todos".
+// Datos de la seccion Proyectos: 24 proyectos (15 visibles + 9 archivados por
+// curaduría) en 4 categorias + filtro "Todos" con el mejor de cada categoria.
 //
 // Regla de archivo (mantener consistencia al agregar proyectos):
 //  - MERCADOS ENERGETICOS: el objeto de estudio es el mercado electrico o su
@@ -19,6 +20,8 @@ export interface Project {
   category: 'data-science' | 'optimization' | 'energy-markets' | 'bi-analytics';
   color: string;
   href?: string;
+  /** Proyecto archivado: no se muestra (curaduría — máx 4 visibles por categoria). */
+  archived?: boolean;
 }
 
 export const projects: Project[] = [
@@ -33,6 +36,7 @@ export const projects: Project[] = [
     result: 'ISVIC compuesto 0-100 con 4 sub-indicadores de riesgo',
     category: 'energy-markets',
     color: '#D4A03A',
+    archived: true,
   },
   {
     id: '02',
@@ -68,6 +72,7 @@ export const projects: Project[] = [
     result: '4 papers independientes + documento integrador sistemico',
     category: 'energy-markets',
     color: '#D4A03A',
+    archived: true,
   },
   {
     id: '05',
@@ -103,6 +108,7 @@ export const projects: Project[] = [
     result: 'Elasticidad CAPEX/km vs tension ≈ 1,76 (R²=0,69)',
     category: 'energy-markets',
     color: '#D4A03A',
+    archived: true,
   },
 
   // ─── DATA-SCIENCE (7 proyectos) ───
@@ -117,6 +123,7 @@ export const projects: Project[] = [
     category: 'data-science',
     color: '#4A6B7C',
     href: 'https://demanda-electrica-residencial.vercel.app/',
+    archived: true,
   },
   {
     id: '09',
@@ -128,6 +135,7 @@ export const projects: Project[] = [
     result: 'H1 confirmada: diferencial beta 0,756 (p = 0,0008)',
     category: 'data-science',
     color: '#4A6B7C',
+    archived: true,
   },
   {
     id: '10',
@@ -163,6 +171,7 @@ export const projects: Project[] = [
     result: '2 modelos MVP (hurto + morosidad), AUC 0,94-0,99',
     category: 'data-science',
     color: '#4A6B7C',
+    archived: true,
   },
   {
     id: '13',
@@ -237,6 +246,7 @@ export const projects: Project[] = [
     category: 'bi-analytics',
     color: '#8A8A95',
     href: 'https://monitor-educacion.vercel.app/',
+    archived: true,
   },
   {
     id: '19',
@@ -261,6 +271,7 @@ export const projects: Project[] = [
     category: 'bi-analytics',
     color: '#8A8A95',
     href: 'https://monitor-laboral.vercel.app/',
+    archived: true,
   },
   {
     id: '21',
@@ -309,6 +320,7 @@ export const projects: Project[] = [
     category: 'bi-analytics',
     color: '#8A8A95',
     href: 'https://monitor-vivienda.vercel.app/',
+    archived: true,
   },
 ];
 
@@ -326,20 +338,22 @@ export const categories: Category[] = [
   { id: 'bi-analytics', label: 'BI & Analytics', color: '#8A8A95' },
 ];
 
-export const defaultProjects = ['11', '15', '02', '21'];
+export const defaultProjects = ['11', '17', '02', '21'];
 
 /**
  * Regla de filtrado:
- *  - "Todos" → muestra los proyectos destacados (defaultProjects), uno por categoría.
- *  - Una categoría específica → hasta 4 proyectos de esa categoría.
+ *  - "Todos" → muestra el mejor proyecto de cada categoría (defaultProjects).
+ *  - Una categoría específica → hasta 4 proyectos visibles (los no archivados).
+ *  - Los proyectos `archived` nunca se muestran (curaduría, máx 4 por categoría).
  *
  * Lógica pura, separada de React para poder testearla sin renderizar nada.
  */
 export function getFilteredProjects(categoryId: Category['id']): Project[] {
+  const visibles = projects.filter((p) => !p.archived);
   if (categoryId === 'todos') {
-    return projects.filter((p) => defaultProjects.includes(p.id));
+    return visibles.filter((p) => defaultProjects.includes(p.id));
   }
-  return projects.filter((p) => p.category === categoryId).slice(0, 4);
+  return visibles.filter((p) => p.category === categoryId).slice(0, 4);
 }
 
 // ---------------------------------------------------------------------------
@@ -361,13 +375,13 @@ export interface FrontierProject {
 
 export const PROJECTS: FrontierProject[] = [
   {
-    slug: '15',
-    title: 'Optimizacion de Tarifa Electrica Industrial — Chile',
-    sector: 'Manufactura · Energia',
-    duration: '14 semanas',
-    result: '6 modelos de optimizacion contrastados, BESS sizing',
-    x: 6.4,
-    y: 8.2,
+    slug: '17',
+    title: 'Ventanas de Mantenimiento de Transmision — SEN',
+    sector: 'Energia · Transmision',
+    duration: '12 semanas',
+    result: 'Frente Pareto de 15 planes, VaR/CVaR 16,0/16,9 h (95%)',
+    x: 6.8,
+    y: 8.4,
   },
   {
     slug: '11',

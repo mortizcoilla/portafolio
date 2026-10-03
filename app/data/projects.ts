@@ -71,6 +71,7 @@ export const projects: Project[] = [
     result: 'Estudio academico de 10 partes con pagina web interactiva',
     category: 'energy-markets',
     color: '#D4A03A',
+    href: 'https://spot-beta-one.vercel.app/',
   },
   {
     id: '06',

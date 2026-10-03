@@ -61,6 +61,7 @@ export const projects: Project[] = [
     category: 'energy-markets',
     color: '#D4A03A',
     href: 'https://electrichile-pro.vercel.app',
+    archived: true,
   },
   {
     id: '04',
@@ -109,7 +110,6 @@ export const projects: Project[] = [
     category: 'energy-markets',
     color: '#D4A03A',
     href: 'https://capex-blond.vercel.app/',
-    archived: true,
   },
 
   // ─── DATA-SCIENCE (7 proyectos) ───

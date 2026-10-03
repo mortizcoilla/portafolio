@@ -217,10 +217,11 @@ export const projects: Project[] = [
     title: 'Optimizacion de Carteras de Inversion',
     sector: 'Finanzas',
     duration: '8 semanas',
-    technique: 'Finanzas cuantitativas, React, Vite, Python',
-    result: 'Frontend React + backend Python para analisis de carteras',
+    technique: 'Markowitz, risk parity (ERC), max-Sharpe, cvxpy, backtest rolling',
+    result: '6 estrategias sobre 30 acciones del IPSA, 14 anos y 4 crisis',
     category: 'optimization',
     color: '#C4A882',
+    href: 'https://optimizacion-de-carteras-lohx.vercel.app/',
   },
   {
     id: '17',

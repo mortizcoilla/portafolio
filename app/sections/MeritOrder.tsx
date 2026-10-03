@@ -19,6 +19,7 @@ const INTENSIDAD: Record<Project['category'], number> = {
   'data-science': 38,
   optimization: 58,
   'energy-markets': 78,
+  finanzas: 68,
 };
 
 const W = 960;

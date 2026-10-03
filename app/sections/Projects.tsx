@@ -30,6 +30,17 @@ const ProjectCard = memo(function ProjectCard({
       className="group bg-surface p-8 transition-shadow duration-300 hover:shadow-[inset_2px_0_0_var(--card-accent)] md:p-10"
       style={{ '--card-accent': project.color } as CSSProperties}
     >
+      {project.img && (
+        <div className="-mx-8 -mt-8 mb-6 overflow-hidden border-b border-primary/10 md:-mx-10 md:-mt-10">
+          {/* eslint-disable-next-line @next/next/no-img-element -- thumbnails estáticos optimizados */}
+          <img
+            src={project.img}
+            alt={`Dashboard de ${project.title}`}
+            loading="lazy"
+            className="aspect-[16/9] w-full object-cover object-top transition-transform duration-500 group-hover:scale-[1.02]"
+          />
+        </div>
+      )}
       <div className="flex items-baseline justify-between gap-4">
         <span className="font-mono text-sm text-secondary">{project.number}</span>
         <span
@@ -89,6 +100,14 @@ export default function Projects() {
 
   const hasMore = totalInCategory > 4;
   const hiddenCount = totalInCategory - 4;
+
+  // Cifras reales calculadas desde los datos (nada inventado)
+  const stats = useMemo(() => {
+    const vis = projects.filter((p) => !p.archived);
+    const desplegados = vis.filter((p) => p.href).length;
+    const semanas = vis.reduce((sum, p) => sum + parseInt(p.duration, 10), 0);
+    return { total: vis.length, desplegados, semanas, lineas: categories.length - 1 };
+  }, []);
 
   const categoryLabels = useMemo(() => new Map(categories.map((c) => [c.id, c.label])), []);
 
@@ -209,6 +228,34 @@ export default function Projects() {
     setExpanded((prev) => !prev);
   };
 
+  // El orden de mérito (u otro elemento) pide saltar a una tarjeta: si su
+  // categoría no es la activa, cambia el filtro y espera la animación.
+  useEffect(() => {
+    const handler = (e: Event) => {
+      const { id, category } = (e as CustomEvent<{ id: string; category: Category['id'] }>).detail;
+      const saltar = () => {
+        const el = document.getElementById(`proyecto-${id}`);
+        if (!el) return;
+        el.scrollIntoView({ behavior: 'smooth', block: 'center' });
+        el.animate(
+          [
+            { boxShadow: '0 0 0 2px #C4A882', transform: 'scale(1.012)' },
+            { boxShadow: '0 0 0 2px transparent', transform: 'scale(1)' },
+          ],
+          { duration: 1500, easing: 'ease-out' },
+        );
+      };
+      if (category && category !== activeCategory) {
+        handleCategoryChange(category);
+        window.setTimeout(saltar, 750);
+      } else {
+        saltar();
+      }
+    };
+    window.addEventListener('portafolio:goto-project', handler);
+    return () => window.removeEventListener('portafolio:goto-project', handler);
+  }, [activeCategory]);
+
   return (
     <section
       id="proyectos"
@@ -216,6 +263,10 @@ export default function Projects() {
       className="mx-auto max-w-site scroll-mt-24 px-6 py-16 md:px-10 md:py-24"
     >
       <h2 className="font-mono text-xs uppercase tracking-[0.2em] text-copper">Proyectos</h2>
+      <p className="mt-3 font-mono text-xs tracking-wide text-secondary">
+        {stats.total} proyectos · {stats.desplegados} desplegados en vivo ·{' '}
+        {stats.semanas} semanas de trabajo · {stats.lineas} líneas
+      </p>
 
       {/* Selector de categorías */}
       <nav

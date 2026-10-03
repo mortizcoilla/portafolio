@@ -20,8 +20,6 @@ export interface Project {
   category: 'data-science' | 'optimization' | 'energy-markets' | 'sociedad';
   color: string;
   href?: string;
-  /** Thumbnail del dashboard desplegado (public/thumbs). */
-  img?: string;
   /** Proyecto archivado: no se muestra (curaduría — máx 4 visibles por categoria). */
   archived?: boolean;
 }
@@ -51,7 +49,6 @@ export const projects: Project[] = [
     category: 'energy-markets',
     color: '#D4A03A',
     href: 'https://atlas-mercado-electrico.vercel.app/',
-    img: '/thumbs/02.jpg',
   },
   {
     id: '03',
@@ -89,7 +86,6 @@ export const projects: Project[] = [
     category: 'energy-markets',
     color: '#D4A03A',
     href: 'https://spot-beta-one.vercel.app/',
-    img: '/thumbs/05.jpg',
   },
   {
     id: '06',
@@ -102,7 +98,6 @@ export const projects: Project[] = [
     category: 'energy-markets',
     color: '#D4A03A',
     href: 'https://cmgmarginal.vercel.app/',
-    img: '/thumbs/06.jpg',
   },
   {
     id: '07',
@@ -115,7 +110,6 @@ export const projects: Project[] = [
     category: 'energy-markets',
     color: '#D4A03A',
     href: 'https://capex-blond.vercel.app/',
-    img: '/thumbs/07.jpg',
   },
 
   // ─── DATA-SCIENCE (7 proyectos) ───
@@ -130,7 +124,6 @@ export const projects: Project[] = [
     category: 'data-science',
     color: '#4A6B7C',
     href: 'https://demanda-electrica-residencial.vercel.app/',
-    img: '/thumbs/08.jpg',
   },
   {
     id: '09',
@@ -168,7 +161,6 @@ export const projects: Project[] = [
     category: 'data-science',
     color: '#4A6B7C',
     href: 'https://propension.vercel.app/',
-    img: '/thumbs/11.jpg',
   },
   {
     id: '12',
@@ -193,7 +185,6 @@ export const projects: Project[] = [
     category: 'data-science',
     color: '#4A6B7C',
     href: 'https://transformadores-murex.vercel.app/',
-    img: '/thumbs/13.jpg',
   },
   {
     id: '14',
@@ -206,7 +197,6 @@ export const projects: Project[] = [
     category: 'data-science',
     color: '#4A6B7C',
     href: 'https://gemelo-digital-eight.vercel.app/',
-    img: '/thumbs/14.jpg',
   },
 
   // ─── OPTIMIZATION (3 proyectos) ───
@@ -243,7 +233,6 @@ export const projects: Project[] = [
     category: 'optimization',
     color: '#C4A882',
     href: 'https://ventanas-five.vercel.app/',
-    img: '/thumbs/17.jpg',
   },
 
   // ─── BI-ANALYTICS (7 proyectos) ───
@@ -271,7 +260,6 @@ export const projects: Project[] = [
     category: 'sociedad',
     color: '#8A8A95',
     href: 'https://monitor-financiero-blond.vercel.app/',
-    img: '/thumbs/19.jpg',
   },
   {
     id: '20',
@@ -297,7 +285,6 @@ export const projects: Project[] = [
     category: 'sociedad',
     color: '#8A8A95',
     href: 'https://monitor-realidad-nacional.vercel.app/',
-    img: '/thumbs/21.jpg',
   },
   {
     id: '22',
@@ -310,7 +297,6 @@ export const projects: Project[] = [
     category: 'sociedad',
     color: '#8A8A95',
     href: 'https://monitor-salud-two.vercel.app/',
-    img: '/thumbs/22.jpg',
   },
   {
     id: '23',
@@ -323,7 +309,6 @@ export const projects: Project[] = [
     category: 'sociedad',
     color: '#8A8A95',
     href: 'https://monitor-seguridad-one.vercel.app/',
-    img: '/thumbs/23.jpg',
   },
   {
     id: '24',

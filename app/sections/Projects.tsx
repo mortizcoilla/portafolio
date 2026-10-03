@@ -30,17 +30,6 @@ const ProjectCard = memo(function ProjectCard({
       className="group bg-surface p-8 transition-shadow duration-300 hover:shadow-[inset_2px_0_0_var(--card-accent)] md:p-10"
       style={{ '--card-accent': project.color } as CSSProperties}
     >
-      {project.img && (
-        <div className="-mx-8 -mt-8 mb-6 overflow-hidden border-b border-primary/10 md:-mx-10 md:-mt-10">
-          {/* eslint-disable-next-line @next/next/no-img-element -- thumbnails estáticos optimizados */}
-          <img
-            src={project.img}
-            alt={`Dashboard de ${project.title}`}
-            loading="lazy"
-            className="aspect-[16/9] w-full object-cover object-top transition-transform duration-500 group-hover:scale-[1.02]"
-          />
-        </div>
-      )}
       <div className="flex items-baseline justify-between gap-4">
         <span className="font-mono text-sm text-secondary">{project.number}</span>
         <span

@@ -36,6 +36,7 @@ export const projects: Project[] = [
     result: 'Score ICME 0-100 con 5 sub-indicadores de competencia',
     category: 'energy-markets',
     color: '#D4A03A',
+    href: 'https://atlas-mercado-electrico.vercel.app/',
   },
   {
     id: '03',

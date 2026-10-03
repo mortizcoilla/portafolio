@@ -138,7 +138,6 @@ export const projects: Project[] = [
     color: '#4A6B7C',
     href: 'https://famafrench.vercel.app/',
   },
-  },
   {
     id: '10',
     number: '10',

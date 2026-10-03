@@ -339,7 +339,7 @@ export const categories: Category[] = [
   { id: 'sociedad', label: 'Sociedad', color: '#8A8A95' },
 ];
 
-export const defaultProjects = ['11', '17', '02', '21'];
+export const defaultProjects = ['11', '17', '05', '19'];
 
 /**
  * Regla de filtrado:
@@ -394,22 +394,22 @@ export const PROJECTS: FrontierProject[] = [
     y: 7.1,
   },
   {
-    slug: '02',
-    title: 'Atlas del Mercado Electrico Mayorista — Chile',
-    sector: 'Energia · Regulacion',
-    duration: '10 semanas',
-    result: 'Score ICME 0-100 con 5 sub-indicadores de competencia',
-    x: 4.7,
-    y: 6.2,
+    slug: '05',
+    title: 'Pricing Dinamico del Mercado SPOT Electrico Chileno',
+    sector: 'Energia · Trading',
+    duration: '12 semanas',
+    result: 'Estudio academico de 10 partes con pagina web interactiva',
+    x: 5.2,
+    y: 7.8,
   },
   {
-    slug: '21',
-    title: 'Atlas de la Realidad Nacional — Chile 2026',
-    sector: 'Politicas Publicas · Chile',
-    duration: '10 semanas',
-    result: '51,7/100 (Elevado), 6 monitores fuente integrados',
-    x: 9.1,
-    y: 8.8,
+    slug: '19',
+    title: 'Monitor Financiero de los Hogares Chilenos (IEFH)',
+    sector: 'Finanzas · Banca Central',
+    duration: '8 semanas',
+    result: 'IEFH con 6 dimensiones, 25 visualizaciones D3.js',
+    x: 8.8,
+    y: 8.4,
   },
 ];
 

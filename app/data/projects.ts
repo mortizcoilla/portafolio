@@ -1,4 +1,12 @@
 // Datos de la seccion Proyectos: 24 proyectos en 4 categorias + filtro "Todos".
+//
+// Regla de archivo (mantener consistencia al agregar proyectos):
+//  - MERCADOS ENERGETICOS: el objeto de estudio es el mercado electrico o su
+//    regulacion (analisis de mercado, precios, normativa), independiente del metodo.
+//  - CIENCIA DE DATOS / OPTIMIZACION / BI: clasificacion por METODO dominante
+//    (ML/estadistica; decision matematica/MILP; visualizacion e indices), para
+//    cualquier dominio. Ej: forecasting de demanda -> data-science aunque sea
+//    energia; analisis del precio spot -> energy-markets aunque use ML.
 
 export interface Project {
   id: string;

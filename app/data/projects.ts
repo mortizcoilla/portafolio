@@ -124,6 +124,7 @@ export const projects: Project[] = [
     category: 'data-science',
     color: '#4A6B7C',
     href: 'https://demanda-electrica-residencial.vercel.app/',
+    archived: true,
   },
   {
     id: '09',
@@ -135,7 +136,8 @@ export const projects: Project[] = [
     result: 'H1 confirmada: diferencial beta 0,756 (p = 0,0008)',
     category: 'data-science',
     color: '#4A6B7C',
-    archived: true,
+    href: 'https://famafrench.vercel.app/',
+  },
   },
   {
     id: '10',
